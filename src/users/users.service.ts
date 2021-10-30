@@ -2,6 +2,7 @@ import { Injectable, ConflictException } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { UserRole } from './enum/role.enum';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -16,10 +17,17 @@ export class UsersService {
       throw new ConflictException('Email já cadastrado.');
     }
 
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
     const user = await this.db.user.create({
-      data,
+      data: {
+        ...data,
+        role: role,
+        password: hashedPassword,
+      },
     });
 
-    return user:
+    delete user.password;
+    return user;
   }
 }
