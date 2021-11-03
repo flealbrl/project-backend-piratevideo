@@ -1,20 +1,26 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { UserRole } from './enum/role.enum';
 import * as bcrypt from 'bcrypt';
+import { identity } from 'node_modules/rxjs/dist/types';
+import { removeAllListeners } from 'process';
 
 @Injectable()
 export class UsersService {
   constructor(private db: PrismaService) {}
 
   async create(data: Prisma.UserCreateInput, role: UserRole): Promise<User> {
-    const userExits = await this.db.user.findUnique({
+    const userExists = await this.db.user.findUnique({
       where: { email: data.email },
     });
 
-    if (userExits) {
-      throw new ConflictException('Email já cadastrado.');
+    if (userExists) {
+      throw new ConflictException('Email já está cadastrado');
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -29,5 +35,24 @@ export class UsersService {
 
     delete user.password;
     return user;
+  }
+
+  async findOne(id: string): Promise<User> {
+    const user = await this.db.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new NotFoundException('ID Não encontrado na base de dados');
+    }
+
+    delete user.password;
+    return user;
+  }
+
+  async findMany() {
+    const user = await this.db.user.findMany();
+    const newUser = user.map(({ password, ...resto }) => resto);
+    return newUser;
   }
 }
