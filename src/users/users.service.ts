@@ -7,8 +7,6 @@ import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { UserRole } from './enum/role.enum';
 import * as bcrypt from 'bcrypt';
-import { identity } from 'node_modules/rxjs/dist/types';
-import { removeAllListeners } from 'process';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +21,8 @@ export class UsersService {
       throw new ConflictException('Email já está cadastrado');
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const salt = 10;
+    const hashedPassword = await bcrypt.hash(data.password, salt);
 
     const user = await this.db.user.create({
       data: {
@@ -54,5 +53,15 @@ export class UsersService {
     const user = await this.db.user.findMany();
     const newUser = user.map(({ password, ...resto }) => resto);
     return newUser;
+  }
+
+  async deleteOne(id: string): Promise<{ message: string }> {
+    await this.db.user.delete({
+      where: { id },
+    });
+
+    return {
+      message: 'Item deletedo com sucesso.',
+    };
   }
 }
