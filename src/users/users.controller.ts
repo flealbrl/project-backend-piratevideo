@@ -13,6 +13,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { UserRole } from './enum/role.enum';
 import { SimpleGuard } from 'src/auth/simple.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UsersController {
@@ -36,6 +37,7 @@ export class UsersController {
     return this.service.findOne(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('find-all')
   findMany() {
     return this.service.findMany();

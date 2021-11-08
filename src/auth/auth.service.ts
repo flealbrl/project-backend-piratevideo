@@ -20,13 +20,13 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new NotFoundException('Usuário não encontrado.');
+      throw new NotFoundException('Usuário não existe');
     }
 
     const hashValid = await bcrypt.compare(password, user.password);
 
     if (!hashValid) {
-      throw new UnauthorizedException('Senha Inválida.');
+      throw new UnauthorizedException('Senha inválida');
     }
 
     delete user.password;
