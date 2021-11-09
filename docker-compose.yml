@@ -5,13 +5,13 @@ services:
     image: postgres:alpine
     ports:
       - '5432:5432'
-    container_name: 'netflixpg'
+    container_name: 'piratevideo'
     restart: always
     volumes:
-      - netflixpg-data:/var/lib/postgresql/data
+      - piratevideo-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pgpassword
 
 volumes:
-  netflixpg-data:
+  piratevideo-data:

@@ -16,11 +16,11 @@ export class SimpleGuard implements CanActivate {
     const token = req.headers['authorization'];
 
     if (!token) {
-      throw new UnauthorizedException('Token não encontrado');
+      throw new UnauthorizedException('Token informado não é válido.');
     }
 
-    if (token !== 'MEU_TOKEN') {
-      throw new UnauthorizedException('Token inválido');
+    if (token !== 'ADMIN_TOKEM_C1') {
+      throw new UnauthorizedException('Token informado não é válido.');
     }
 
     return true;

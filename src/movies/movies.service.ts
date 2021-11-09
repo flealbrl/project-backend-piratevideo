@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { Prisma, Movie, User } from '@prisma/client';
-
+import { Prisma } from '@prisma/client';
+import { Movie } from '.prisma/client';
+import { User } from '.prisma/client';
 @Injectable()
 export class MoviesService {
   constructor(private db: PrismaService) {}
@@ -22,7 +23,7 @@ export class MoviesService {
     });
 
     if (!movie) {
-      throw new NotFoundException('ID Não encontrado na base de dados');
+      throw new NotFoundException('ID Não encontrado na base de dados.');
     }
 
     return movie;
@@ -34,7 +35,7 @@ export class MoviesService {
     });
 
     return {
-      message: 'Item deletado com sucesso',
+      message: 'Item deletado da base de dados.',
     };
   }
 

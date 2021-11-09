@@ -1,27 +1,21 @@
-import {
-  IsString,
-  Length,
-  IsEmail,
-  IsNotEmpty,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsString, Length, IsEmail, IsNotEmpty } from 'class-validator';
 export class CreateUserDto {
-  @IsString({ message: 'Informe um nome válido' })
-  @MinLength(2, { message: 'Informe um valor maior que 2' })
+  @IsString({ message: 'O nome deve conter entre 2 a 70 caracteres.' })
+  @Length(2, 70)
   @IsNotEmpty()
   name: string;
 
   @IsNotEmpty()
-  @IsEmail({}, { message: 'Informe um endereço de email válido' })
-  @IsString()
+  @IsEmail({}, { message: 'Informe um e-mail válido.' })
   email: string;
 
-  @Length(6, 16)
-  @IsString({ message: 'Informe uma senha válida' })
+  @IsString({
+    message: 'Informe uma senha válida.',
+  })
+  @Length(6, 12)
   password: string;
 
-  @Length(6, 16)
-  @IsString({ message: 'Informe uma confirmação de senha válida' })
+  @IsString({ message: 'Informe a confirmação de senha válida.' })
+  @Length(6, 12)
   passwordConfirmation: string;
 }

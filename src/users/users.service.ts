@@ -18,7 +18,7 @@ export class UsersService {
     });
 
     if (userExists) {
-      throw new ConflictException('Email já está cadastrado');
+      throw new ConflictException('Email já cadastrado!');
     }
 
     const salt = 10;
@@ -42,7 +42,7 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new NotFoundException('ID Não encontrado na base de dados');
+      throw new NotFoundException('ID Não encontrado na base de dados.');
     }
 
     delete user.password;
@@ -61,7 +61,7 @@ export class UsersService {
     });
 
     return {
-      message: 'Item deletado com sucesso',
+      message: 'Item deletado da base de dados.',
     };
   }
 }
