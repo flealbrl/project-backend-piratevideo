@@ -1,14 +1,10 @@
-import { IsString, Length, IsEmail, IsNotEmpty } from 'class-validator';
-import { User } from '.prisma/client';
-
+import { IsString, IsEmail } from 'class-validator';
+import { User } from '@prisma/client';
 export class LoginDto {
-  @IsString()
-  @IsNotEmpty()
-  @IsEmail({}, { message: 'Informe um e-mail válido.' })
+  @IsEmail()
   email: string;
 
-  @IsString({ message: 'Informe uma senha válida.' })
-  @Length(6, 12)
+  @IsString()
   password: string;
 }
 

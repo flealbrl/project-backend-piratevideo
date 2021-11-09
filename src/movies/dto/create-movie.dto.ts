@@ -1,22 +1,17 @@
-import { IsString, Length } from 'class-validator';
+import { IsNotEmpty, IsUrl, IsString } from 'class-validator';
 export class CreateMovieDto {
-  @IsString({ message: 'O nome deve ter entre 2 a 70 caracteres.' })
-  @Length(2, 70)
+  @IsString()
   name: string;
 
-  @IsString({ message: 'O ano deve ter entre 5 a 50 caracteres.' })
-  @Length(5, 50)
-  year: Date;
+  @IsString()
+  year: string;
 
-  @IsString({ message: 'A duração deve ter entre 5 a 50 caracteres.' })
-  @Length(5, 50)
-  length: Date;
+  @IsString()
+  length: string;
 
-  @IsString({ message: 'A sinopse deve ter entre 20 a 800 caracteres.' })
-  @Length(3, 800)
+  @IsNotEmpty()
   storyline: string;
 
-  @IsString({ message: 'A URL da imagem deve ter entre 3 a 800 caracteres.' })
-  @Length(3, 800)
+  @IsUrl()
   image: string;
 }

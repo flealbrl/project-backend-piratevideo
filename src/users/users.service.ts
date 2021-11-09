@@ -61,7 +61,7 @@ export class UsersService {
     });
 
     return {
-      message: 'Item deletedo com sucesso.',
+      message: 'Item deletado com sucesso',
     };
   }
 }
