@@ -26,6 +26,7 @@ model Movie {
   id        String   @id @default(uuid())
   name      String
   year      String
+  genre     String
   length    String
   storyline String
   image     String

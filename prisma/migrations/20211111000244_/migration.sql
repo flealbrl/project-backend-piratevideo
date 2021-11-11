@@ -17,6 +17,7 @@ CREATE TABLE "Movie" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "year" TEXT NOT NULL,
+    "genre" TEXT NOT NULL,
     "length" TEXT NOT NULL,
     "storyline" TEXT NOT NULL,
     "image" TEXT NOT NULL,

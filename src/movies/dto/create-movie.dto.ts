@@ -8,6 +8,10 @@ export class CreateMovieDto {
   @Length(5, 50)
   year: string;
 
+  @IsString({ message: '' })
+  @Length(3, 20)
+  genre: string;
+
   @IsString({
     message: 'A duração do filme deve conter entre 5 a 50 caracteres.',
   })
